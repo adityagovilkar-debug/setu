@@ -39,3 +39,4 @@ details summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:12px;let
   .rrow{grid-template-columns:70px minmax(0,1fr)}
   .tt th,.tt td{padding:6px 8px;min-width:36px}
 }
+a.btn{text-decoration:none}

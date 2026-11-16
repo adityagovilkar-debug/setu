@@ -186,7 +186,7 @@ Known limits of the bot today:
 - Past the first two or three rounds of bidding it places the contract on points and fit rather than exploring, so it will miss some slams and some thin games.
 - It never makes a penalty double below game values and never sacrifices.
 - Opponents overcalling our 1NT, and most auctions after both sides have bid twice, are judged, not rule-driven. The Phase 2 critic will list exactly these.
-- Not installed as an app yet and not hosted. Both need the separate address (decision H).
+- Hosted since 2026-11-16 at https://adityagovilkar-debug.github.io/setu/ (GitHub Pages, `npm run deploy`). Works offline after the first visit and can be added to the Dock or the phone home screen. Not yet tried on a real Mac or in Safari.
 
 ## 14. Mockup
 
