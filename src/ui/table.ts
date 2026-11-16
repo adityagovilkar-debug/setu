@@ -37,7 +37,7 @@ const st: State = { table: null, seed: 0, vulNS: false, vulEW: false, sel: -1, h
 // ---------- solver worker
 let worker: Worker | null = null;
 let jobId = 0;
-function solve(deal: Deal): void {
+function solve(deal: Deal | null): void {
   if (!worker) {
     worker = new Worker(new URL('../solver.worker.ts', import.meta.url), { type: 'module' });
     worker.onmessage = (e: MessageEvent) => {
@@ -50,6 +50,10 @@ function solve(deal: Deal): void {
       st.solveError = 'The solver could not start in this browser.';
       render();
     };
+  }
+  if (!deal) {
+    worker.postMessage({ id: 0, deal: null }); // load the solver ahead of the first result
+    return;
   }
   jobId++;
   worker.postMessage({ id: jobId, deal });
@@ -262,6 +266,7 @@ export function initTable(): void {
   sel.onchange = () => { data.situation = sel.value; save(); start(); };
   $('#newDeal').onclick = () => { data.board++; save(); start(); };
   start();
+  solve(null);
 }
 /** Called when the card changes: deal afresh so the bots use the new card. */
 export function restartTable(): void {

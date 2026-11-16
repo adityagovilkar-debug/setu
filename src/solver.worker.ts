@@ -5,6 +5,7 @@ self.onmessage = async (e: MessageEvent) => {
   const { id, deal } = e.data;
   try {
     await initSolver();
+    if (!deal) return; // warm-up only
     (self as unknown as Worker).postMessage({ id, tt: solveDeal(deal) });
   } catch (err) {
     (self as unknown as Worker).postMessage({ id, error: String(err) });

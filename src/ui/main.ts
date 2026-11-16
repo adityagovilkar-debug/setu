@@ -55,3 +55,19 @@ $('#suitBtn').onclick = () => {
 applyTheme();
 initTable();
 initSystem();
+
+// Keep a copy on the device so the app opens without internet after the first visit.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(() => {
+    window.setTimeout(async () => {
+      const reg = await navigator.serviceWorker.ready;
+      const urls = performance
+        .getEntriesByType('resource')
+        .map((r) => r.name)
+        .filter((u) => u.startsWith(location.origin));
+      reg.active?.postMessage({ cache: [location.href, 'how-to-use.html', ...urls] });
+    }, 5000);
+  }).catch(() => {
+    // no offline copy in this browser; the app still works online
+  });
+}
