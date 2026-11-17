@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0E0F12">
+<title>Setu — bridge lab</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+  <script type="module" crossorigin src="./assets/index-CQzSmtOR.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DgtNXroa.css">
+</head>
+<body>
+<div class="app">
+  <header class="tb">
+    <div class="wm"><div class="mark"><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i></div>SETU <em>Bridge lab</em></div>
+    <div class="crumb" id="crumb"></div>
+    <div class="r">
+      <a class="btn sm" href="how-to-use.html" target="_blank" rel="noopener">Help</a>
+      <button class="btn sm" id="suitBtn" title="Suit colours">2 colours</button>
+      <button class="btn sm" id="themeBtn" title="Light or dark">Dark</button>
+    </div>
+  </header>
+  <nav class="rail" id="rail">
+    <div class="ind" id="ind"></div>
+    <button class="rb on" data-v="table"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="11" height="15" rx="1.5"/><path d="M9 6.5h11v14.5H9"/></svg>Table</button>
+    <button class="rb" data-v="system"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg>System</button>
+    <button class="rb" data-v="lab"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M8 15h8"/></svg>Lab</button>
+    <button class="rb" data-v="review"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>Review</button>
+    <button class="rb" data-v="progress"><svg viewBox="0 0 24 24"><path d="M4 20V5M4 20h16"/><circle cx="9" cy="14" r="1.2"/><circle cx="13" cy="10" r="1.2"/><circle cx="18" cy="7" r="1.2"/></svg>Progress</button>
+  </nav>
+  <main>
+    <div class="paper"></div>
+
+    <section class="view on" id="v-table">
+      <div class="th rise">
+        <div><div class="no">01 · PRACTICE TABLE · BIDDING</div><h1 id="tTitle">Board 1</h1><p id="tSub"></p></div>
+        <div class="acts">
+          <label class="pick"><span class="lbl">Deal me</span><select id="situation" class="inp"></select></label>
+          <button class="btn" id="newDeal">New deal</button>
+        </div>
+      </div>
+      <div class="tgrid">
+        <div class="unit rise" style="--i:1"><div class="felt" id="felt"></div></div>
+        <div class="side-col">
+          <div class="unit mean rise" style="--i:2">
+            <div class="head"><h2>What that bid means</h2><span class="meta">tap any bid</span></div>
+            <div id="meaning"></div>
+          </div>
+          <div class="unit rise" style="--i:3">
+            <div class="head"><h2 id="boxTitle">Your call</h2><span class="meta" id="boxMeta">bidding box</span></div>
+            <div id="boxBody"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="v-system">
+      <div class="th rise">
+        <div><div class="no">02 · SYSTEM NOTEBOOK</div><h1 id="cardName">My 2/1 card</h1><p>Your agreements. Your bot partner plays exactly what is written here.</p></div>
+        <div class="acts"><button class="btn" id="saveVersion">Save a version</button><button class="btn" id="addRule">Add a rule card</button><button class="btn pri" id="checkBtn">Check this system</button></div>
+      </div>
+      <div class="unit rise" id="findings" style="--i:1;margin-bottom:var(--gap)" hidden>
+        <div class="head"><h2>Critic's report</h2><span class="meta"><span id="findMeta"></span> <button class="btn sm" id="findClose" style="margin-left:8px">Close</button></span></div>
+        <p id="findStale" class="tag t-judg" style="margin:0 0 10px" hidden><i></i>Your card has changed since this check — press “Check this system” again</p>
+        <div id="findBody"></div>
+      </div>
+      <div class="sgrid">
+        <div class="unit rise" style="--i:1">
+          <div class="head"><h2>Base and versions</h2></div>
+          <div class="lbl">Base system</div>
+          <div style="font-size:19px;font-weight:600;margin:4px 0 2px">2/1 Game Force</div>
+          <div class="dim" style="font-size:13.5px">Five-card majors · 1NT 15–17 · weak twos · strong 2♣</div>
+          <div class="sech"><span class="lbl">Versions</span></div>
+          <div id="versions"></div>
+          <div class="sech"><span class="lbl">Keep a copy</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="exportCard">Save to a file</button><button class="btn sm" id="importCard">Load from a file</button><button class="btn sm" id="resetCard">Stock switches</button></div>
+          <input type="file" id="importFile" accept="application/json,.json" hidden>
+          <div class="note"><span class="ring"></span><span>Press “Check this system” to find the gaps in your card. Use the Lab to test one version against another.</span></div>
+        </div>
+        <div class="unit rise" style="--i:2">
+          <div class="head"><h2>Conventions</h2><span class="meta" id="convMeta"></span></div>
+          <div id="convs"></div>
+        </div>
+        <div class="unit rise" style="--i:3">
+          <div class="head"><h2>My own rule cards</h2><span class="meta" id="ownMeta"></span></div>
+          <div id="rules"></div>
+        </div>
+      </div>
+      <div class="unit rise" style="--i:4;margin-top:var(--gap)">
+        <div class="head"><h2>The whole card</h2><span class="meta" id="browserMeta"></span></div>
+        <input class="inp" id="ruleSearch" placeholder="Type an auction to look it up, for example 1NT 2C or 1S (2H)" autocomplete="off">
+        <div id="browser" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <section class="view" id="v-lab">
+      <div class="th rise"><div><div class="no">03 · TEST LAB</div><h1>Is the idea any good?</h1><p>The same deals are bid twice, once with each version of your card, so luck cancels out. Only the deals where the two versions bid differently count.</p></div></div>
+      <div class="lgrid">
+        <div class="unit rise" style="--i:1">
+          <div class="head"><h2>Set up the test</h2></div>
+          <div class="opt"><span class="lbl">Deals where</span><select class="inp" id="labSit"></select></div>
+          <div class="opt"><span class="lbl">Compare</span>
+            <label class="ab"><b>A</b><select class="inp" id="labA"></select></label>
+            <label class="ab"><b>B</b><select class="inp" id="labB"></select></label>
+          </div>
+          <div class="opt"><span class="lbl">How many deals</span><div class="seg" id="labN"><button data-n="500">500</button><button class="on" data-n="2000">2,000</button><button data-n="5000">5,000</button></div></div>
+          <div class="opt"><span class="lbl">Scoring</span><div class="seg" id="labScore"><button class="on" data-s="mp">Matchpoints</button><button data-s="imp">IMPs</button></div></div>
+          <button class="btn pri" id="labRun" style="width:100%;margin-top:6px">Run the test</button>
+          <div class="note"><span class="ring"></span><span>To test an idea: in System, press “Save a version” first, then make your change. Here, compare the saved version (A) with “My card now” (B).</span></div>
+        </div>
+        <div>
+          <div class="unit rise" style="--i:2"><div class="head"><h2>Result</h2><span class="meta" id="labMeta">not run yet</span></div><div id="labBody"></div></div>
+          <div class="two" id="labLists" hidden style="margin-top:var(--gap)">
+            <div class="unit"><div class="head"><h2>Biggest gains for B</h2><span class="meta">tap one</span></div><div id="labWins"></div></div>
+            <div class="unit"><div class="head"><h2>Biggest losses for B</h2><span class="meta">tap one</span></div><div id="labLosses"></div></div>
+          </div>
+          <div class="unit" id="labDeal" hidden style="margin-top:var(--gap)"></div>
+        </div>
+      </div>
+    </section>
+    <section class="view" id="v-review">
+      <div class="th rise"><div><div class="no">04 · REVIEW</div><h1>Review</h1><p>Arrives in Phase 4.</p></div></div>
+      <div class="unit rise" style="--i:1;max-width:680px"><div class="head"><h2>Not built yet</h2></div>
+        <p style="margin:0;color:var(--ink-2)">Review will sort every lost score into system, judgment, card play or luck, and read your hands from Bridge Base Online. For now, each finished board at the Table shows how your calls compare with your card.</p></div>
+    </section>
+    <section class="view" id="v-progress">
+      <div class="th rise"><div><div class="no">05 · PROGRESS</div><h1>So far</h1><p>The full leak tracker arrives in Phase 4. These are your practice boards on this device.</p></div></div>
+      <div class="readouts rise" id="progress" style="--i:1;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));max-width:900px"></div>
+    </section>
+  </main>
+  <footer class="sb"><span><i class="led" style="background:var(--good)"></i>Phase 2 · table, system, critic and lab</span><span class="r">Everything stays on this device</span></footer>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="unit modal" id="modal">
+  <div class="head"><h2 id="modalTitle">New rule card</h2><button class="btn sm" id="closeModal">Close</button></div>
+  <label class="frow"><span class="lbl">After</span><input class="inp" id="fAfter" placeholder="1H   or   1S (2H)   — leave empty for an opening bid" autocomplete="off"></label>
+  <label class="frow"><span class="lbl">Bid</span><input class="inp" id="fCall" placeholder="3NT" autocomplete="off"></label>
+  <div class="frow"><span class="lbl">Points</span><div class="pair"><input class="inp" id="fMin" inputmode="numeric" placeholder="from"><input class="inp" id="fMax" inputmode="numeric" placeholder="to"></div></div>
+  <div class="frow"><span class="lbl">Suit lengths</span>
+    <div class="suitgrid">
+      <span class="sS">♠</span><input class="inp" id="fLoS" inputmode="numeric" placeholder="from"><input class="inp" id="fHiS" inputmode="numeric" placeholder="to">
+      <span class="sH">♥</span><input class="inp" id="fLoH" inputmode="numeric" placeholder="from"><input class="inp" id="fHiH" inputmode="numeric" placeholder="to">
+      <span class="sD">♦</span><input class="inp" id="fLoD" inputmode="numeric" placeholder="from"><input class="inp" id="fHiD" inputmode="numeric" placeholder="to">
+      <span class="sC">♣</span><input class="inp" id="fLoC" inputmode="numeric" placeholder="from"><input class="inp" id="fHiC" inputmode="numeric" placeholder="to">
+    </div>
+  </div>
+  <label class="frow"><span class="lbl">Shape</span><span><input type="checkbox" id="fBal"> Balanced</span></label>
+  <label class="frow"><span class="lbl">Forcing</span><select class="inp" id="fForce"><option value="0">Not forcing</option><option value="1">Forcing for one round</option><option value="2">Forcing to game</option></select></label>
+  <label class="frow"><span class="lbl">Meaning</span><input class="inp" id="fText" placeholder="In your own words: what partner should understand" autocomplete="off"></label>
+  <p id="fPreview" style="margin:12px 0 0;color:var(--ink-2)"></p>
+  <p id="fErr" style="margin:6px 0 0;color:var(--bad)"></p>
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px"><button class="btn pri" id="saveRule">Save rule card</button></div>
+</div>
+<div class="toast" id="toast"></div>
+</body>
+</html>

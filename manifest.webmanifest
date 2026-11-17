@@ -1,0 +1,11 @@
+{
+  "name": "Setu — bridge lab",
+  "short_name": "Setu",
+  "description": "Practise bidding with a bot partner who plays your system.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0E0F12",
+  "theme_color": "#0E0F12",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

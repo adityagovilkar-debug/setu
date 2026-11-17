@@ -1,0 +1,1 @@
+import{t as e}from"./solver.worker-CzYQuNf8.js";var t=/* @__PURE__ */ e(((e,t)=>{t.exports={}}));export default t();
