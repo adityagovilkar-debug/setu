@@ -1,7 +1,7 @@
 // The bidder: follows the rule cards where they speak, and uses plain judgment where they are silent.
 import { Auction, Call, cheapestLevel, isBid, isLegal, isOver, lastBid, levelOf, makeBid, seatOf, strainOf, toAct } from './auction';
 import { Deal, Hand, Seat, SUIT_NAME, SUIT_SYMBOL, aces, evaluate, keyCards, partnerOf, sideOf, stopper, trumpQueen } from './cards';
-import { Match, Shows, System, fillText, noShows } from './rules';
+import { Match, Rule, Shows, System, fillText, noShows } from './rules';
 
 export interface CallMeta {
   call: Call;
@@ -18,6 +18,8 @@ export interface CallMeta {
   /** for a human call: what the card prescribed for the hand (null if the card was silent) */
   cardCall?: Call | null;
   cardText?: string;
+  /** for a bot call made from a rule: the rule that fired */
+  fired?: Rule;
 }
 
 export interface Table {
@@ -108,7 +110,7 @@ interface Verdict {
 }
 
 const GAME_RANK = [11, 11, 10, 10, 9]; // tricks needed for game by strain: 5C 5D 4H 4S 3N
-const isGame = (c: Call): boolean => levelOf(c) + 6 >= GAME_RANK[strainOf(c)];
+export const isGame = (c: Call): boolean => levelOf(c) + 6 >= GAME_RANK[strainOf(c)];
 
 /** Judgment for auctions the card does not cover. */
 function judge(t: Table, seat: Seat): Verdict {
@@ -311,7 +313,7 @@ export function botCall(t: Table, seat: Seat): CallMeta {
   const hit = sys.find(t.auction, seat, t.deal[seat]);
   if (hit) {
     const ex = sys.explain(t.auction, seat, hit.call);
-    return { call: hit.call, seat, src: 'rule', matches: ex.matches, text: fillText(hit.rule.text, hit.bind), shows: ex.shows, force: ex.force };
+    return { call: hit.call, seat, src: 'rule', matches: ex.matches, text: fillText(hit.rule.text, hit.bind), shows: ex.shows, force: ex.force, fired: hit.rule };
   }
   const v = judge(t, seat);
   const meta: CallMeta = { call: v.call, seat, src: 'judgment', matches: [], text: v.why, shows: null, force: v.force ?? 0, tag: v.tag };

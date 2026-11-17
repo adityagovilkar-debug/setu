@@ -380,6 +380,22 @@ export class System {
     return this.matching(buildCtx(a, seat)).length > 0;
   }
 
+  /** Every one of the player's own rule cards that fits this hand here (to spot two cards claiming the same hand). */
+  ownMatches(a: Auction, seat: Seat, hand: Hand): { rule: Rule; call: Call }[] {
+    const ctx = buildCtx(a, seat);
+    const out: { rule: Rule; call: Call }[] = [];
+    for (const m of this.matching(ctx)) {
+      if (!m.rule.own) continue;
+      for (const opt of callOptions(m.rule.call, m.bind, hand)) {
+        if (isLegal(a, opt.call) && testConds(m.rule, hand, opt.bind, ctx, opt.call, a)) {
+          out.push({ rule: m.rule, call: opt.call });
+          break;
+        }
+      }
+    }
+    return out;
+  }
+
   /** The call the card prescribes for this hand: the first rule that fits wins. */
   find(a: Auction, seat: Seat, hand: Hand): { rule: Rule; call: Call; bind: Bind } | null {
     const ctx = buildCtx(a, seat);

@@ -44,6 +44,8 @@ b{font-weight:650}
 <li><a href="#bid">Bidding a hand</a></li>
 <li><a href="#after">After the hand</a></li>
 <li><a href="#system">Changing your system</a></li>
+<li><a href="#check">Checking your system for gaps</a></li>
+<li><a href="#lab">Testing an idea in the Lab</a></li>
 <li><a href="#copy">Keeping a safe copy</a></li>
 <li><a href="#wrong">If something goes wrong</a></li>
 <li><a href="#limits">What Setu cannot do yet</a></li>
@@ -84,10 +86,10 @@ b{font-weight:650}
 <li>Tap <b>Add to Home screen</b> (it may say <b>Install app</b>). Tap <b>Add</b> or <b>Install</b>.</li>
 </ol>
 <p>Setu now has its own picture among your other apps.</p>
-<div class="box"><p><b>Important:</b> the phone and the MacBook do not share anything. Changes you make to your system on one will not appear on the other. It is simplest to make your changes on the MacBook and treat the phone as a place to practise. Part 7 shows how to carry your system across if you want to.</p></div>
+<div class="box"><p><b>Important:</b> the phone and the MacBook do not share anything. Changes you make to your system on one will not appear on the other. It is simplest to make your changes on the MacBook and treat the phone as a place to practise. Part 9 shows how to carry your system across if you want to.</p></div>
 
 <h2 id="bid">4. Bidding a hand</h2>
-<p>Along the left side (on the phone: along the bottom) are five words: Table, System, Lab, Review, Progress. <b>Table</b> is where you play. Lab and Review are not built yet.</p>
+<p>Along the left side (on the phone: along the bottom) are five words: Table, System, Lab, Review, Progress. <b>Table</b> is where you play. Review is not built yet.</p>
 <p>At the Table:</p>
 <ul>
 <li><b>Your cards</b> are the row of thirteen at the bottom. You are always South.</li>
@@ -148,7 +150,45 @@ b{font-weight:650}
 <h3>Looking something up</h3>
 <p>At the bottom of the System page is <b>The whole card</b>. Type a piece of bidding into the box, for example <span class="key">1NT 2C</span>, and it shows every rule your system has from that point on.</p>
 
-<h2 id="copy">7. Keeping a safe copy</h2>
+<h2 id="check">7. Checking your system for gaps</h2>
+<p>Setu can play through thousands of hands with your system and tell you where it has no answer. These are the places where you and a partner could misunderstand each other at the table.</p>
+<ol>
+<li>Click <b>System</b>.</li>
+<li>Click <b>Check this system</b> at the top right. Setu deals and bids ten thousand hands. This takes a few seconds.</li>
+<li>The <b>Critic's report</b> appears at the top of the page.</li>
+</ol>
+<h3>Reading the report</h3>
+<ul>
+<li><b>Bids made on judgment</b> is how often a bid had to be made with no rule to follow. Lower is better.</li>
+<li>Each <b>gap</b> names a piece of bidding, how often it comes up, and what the computer chose when it had to guess. A red label <b>Hole when they bid</b> means the gap appears after the opponents have bid or doubled.</li>
+<li><b>Show me a hand</b> shows a real hand where the gap happened. <b>Bid this deal at the Table</b> takes you there to try it yourself.</li>
+<li><b>Write a rule for this</b> opens a new rule card with the bidding already filled in. Add the hand and the bid, and save it. That gap is now covered.</li>
+<li>If you have your own rule cards, the report says how often each one is used, what partner would have bid without it, and whether two of your cards ask for different bids on the same hand.</li>
+<li>At the bottom it lists how often each convention was used. A convention marked <b>rare — easy to forget</b> comes up so seldom that a partnership may not remember it when it matters.</li>
+</ul>
+<div class="box"><p>The report shows the most frequent gaps first. There are always many very rare ones; you do not need to fill those. Once you change your card, press <b>Check this system</b> again to see the new picture.</p></div>
+
+<h2 id="lab">8. Testing an idea in the Lab</h2>
+<p>The Lab answers the question: <b>is my idea better than what I play now?</b> It bids the same hands twice — once with your old card, once with the new one — and compares the results. Because both versions get exactly the same cards, luck cancels out.</p>
+<ol>
+<li>Click <b>System</b>, then <b>Save a version</b>. Give it a name, for example “Before semi-forcing”. Click <b>OK</b>.</li>
+<li>Now make your change: switch a convention, or add or change a rule card.</li>
+<li>Click <b>Lab</b>.</li>
+<li><b>A</b> will be the version you just saved. <b>B</b> will be <b>My card now</b>. Leave them like that.</li>
+<li>Under <b>Deals where</b>, pick the kind of hand your idea is about. For an idea about responding to a major, pick <b>We open 1♥ or 1♠</b>. If unsure, leave <b>Any deal</b>.</li>
+<li>Leave <b>2,000</b> deals and <b>Matchpoints</b>, and click <b>Run the test</b>. It may take up to a minute. Click <b>Stop</b> if you want to end early.</li>
+</ol>
+<h3>Reading the result</h3>
+<ul>
+<li>The first line gives the verdict: which version scores better, or <b>No clear winner</b>.</li>
+<li><b>Bid differently</b> says on how many deals the change made any difference at all. Only those deals count.</li>
+<li><b>B's result</b> is B's share of the matchpoints on those deals. 50% means no difference. The number after <b>±</b> is the margin of error: if the result is closer to 50% than that, the Lab cannot yet tell the two apart.</li>
+<li>Each dot is one deal: <b>green</b> where B did better, <b>red</b> where A did better, <b>grey</b> where the score was the same.</li>
+<li><b>Biggest gains</b> and <b>Biggest losses</b> list the deals that mattered most. Click one to see all four hands and both auctions side by side.</li>
+</ul>
+<div class="box"><p>If the Lab says <b>too few deals</b> or <b>no clear winner</b>, run it again with <b>5,000</b> deals, or choose a narrower kind of deal. A small change often makes a difference only on a few hands in a hundred.</p></div>
+
+<h2 id="copy">9. Keeping a safe copy</h2>
 <p>Your system is stored only on the machine you are using. It is wise to keep a copy.</p>
 <ol>
 <li>Click <b>System</b>.</li>
@@ -156,7 +196,7 @@ b{font-weight:650}
 </ol>
 <p>To bring it back, or to put it on the phone: click <b>Load from a file</b> and choose that file. To get the file to the phone, email it to yourself and open the email on the phone.</p>
 
-<h2 id="wrong">8. If something goes wrong</h2>
+<h2 id="wrong">10. If something goes wrong</h2>
 <ul>
 <li><b>The screen looks stuck or strange.</b> Hold down the <span class="key">command ⌘</span> key and press <span class="key">R</span>. This loads the page afresh. Nothing you saved is lost.</li>
 <li><b>“Solving the deal…” does not go away.</b> Wait ten seconds. If it is still there, press <span class="key">command ⌘</span> and <span class="key">R</span> together.</li>
@@ -164,13 +204,14 @@ b{font-weight:650}
 <li><b>The screen is too dark or too bright.</b> Click <b>Light</b> or <b>Dark</b> at the top right.</li>
 <li><b>Red and black suits are hard to tell apart.</b> Click <b>2 colours</b> at the top right. It changes to four colours: spades black, hearts red, diamonds blue, clubs green.</li>
 <li><b>Partner made a bid you do not understand.</b> Click that bid. If it says “the card is silent here — the bot used its own judgment”, your system has no rule for that position, and the computer guessed.</li>
-<li><b>Everything has gone back to the beginning.</b> This happens if Safari's stored website data is cleared. Use <b>Load from a file</b> (part 7) to bring your system back.</li>
+<li><b>Everything has gone back to the beginning.</b> This happens if Safari's stored website data is cleared. Use <b>Load from a file</b> (part 9) to bring your system back.</li>
 </ul>
 
-<h2 id="limits">9. What Setu cannot do yet</h2>
+<h2 id="limits">11. What Setu cannot do yet</h2>
 <ul>
 <li>It is <b>bidding only</b>. You do not play the cards yet.</li>
-<li><b>Lab</b> and <b>Review</b> are empty. They will test ideas over thousands of hands and go through your real games.</li>
+<li><b>Review</b> is empty. It will go through your real games from Bridge Base Online.</li>
+<li>The Lab judges each contract as if everyone could see all four hands and played perfectly. That is fair for comparing two versions, but it is not how one real hand goes.</li>
 <li>The computer partner is a careful club player, not an expert. It follows the system faithfully, but after the first few bids it tends to settle for a sensible contract, so it will miss some slams.</li>
 <li>It does not double for penalties except when your side clearly has the points, and it never sacrifices.</li>
 </ul>

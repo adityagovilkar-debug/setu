@@ -40,3 +40,11 @@ details summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:12px;let
   .tt th,.tt td{padding:6px 8px;min-width:36px}
 }
 a.btn{text-decoration:none}
+.ab select{min-height:36px}
+.ab b{font-family:var(--mono);font-size:18px}
+.opt .inp{width:100%}
+.exbox{margin-top:10px;padding:12px 14px;border:1px solid var(--rule);border-radius:var(--r);background:var(--paper-2)}
+.exbox p{margin:6px 0}
+.find .tag{margin-bottom:2px}
+#findings .scan{height:auto;padding:28px 0}
+.drow{cursor:pointer}

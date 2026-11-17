@@ -4,10 +4,11 @@ import { OwnRule, Rule, ctxStartsWith, describeConds, ownToRule } from '../engin
 import { CONVENTIONS, defaultCard } from '../engine/system21';
 import { $, $$, esc, suitsHtml, toast } from './dom';
 import { cardChanged, data, mySystem, save } from './store';
+import { criticStale } from './criticView';
 import { restartTable } from './table';
 
 const VAR_WORDS: Record<string, string> = { M: '♥/♠', m: '♣/♦', oM: ' other major', om: ' other minor', X: ' suit', Y: ' suit', Z: ' new suit' };
-function tokenText(tok: string): string {
+export function tokenText(tok: string): string {
   const opp = tok.startsWith('(');
   const t = opp ? tok.slice(1, -1) : tok;
   let out: string;
@@ -22,7 +23,7 @@ function tokenText(tok: string): string {
   }
   return opp ? `(${out})` : out;
 }
-const ctxText = (ctx: string[]): string => (ctx.length ? ctx.map(tokenText).join(' – ') : 'Opening the bidding');
+export const ctxText = (ctx: string[]): string => (ctx.length ? ctx.map(tokenText).join(' – ') : 'Opening the bidding');
 
 /** Turns what she types ("1♥ - 2nt", "1S (2H)", "pass") into the card's notation. */
 export function normaliseSeq(text: string): string {
@@ -125,11 +126,15 @@ function renderBrowser(): void {
 
 // ---------- rule card editor
 let editing = -1;
-function openEditor(i: number): void {
+/** Opens a new rule card with the auction already filled in (used by the critic). */
+export function newRuleAfter(after: string): void {
+  openEditor(-1, after);
+}
+function openEditor(i: number, prefill = ''): void {
   editing = i;
   const o: OwnRule | null = i >= 0 ? data.card.own[i] : null;
   const get = (re: RegExp): string => (o ? (re.exec(o.conds)?.[1] ?? '') : '');
-  $<HTMLInputElement>('#fAfter').value = o ? o.after : '';
+  $<HTMLInputElement>('#fAfter').value = o ? o.after : prefill;
   $<HTMLInputElement>('#fCall').value = o ? o.call : '';
   const hcp = o ? /hcp\s*(\d+)(?:(\+)|-(\d+))?/.exec(o.conds) : null;
   $<HTMLInputElement>('#fMin').value = hcp ? hcp[1] : '';
@@ -204,6 +209,7 @@ function changed(): void {
   cardChanged();
   renderAll();
   restartTable();
+  criticStale();
 }
 function renderAll(): void {
   $('#cardName').textContent = data.card.name;

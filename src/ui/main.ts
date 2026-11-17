@@ -2,6 +2,8 @@ import './style.css';
 import './extra.css';
 import { $, $$ } from './dom';
 import { data, save } from './store';
+import { initCritic } from './criticView';
+import { initLab, refreshLab } from './labView';
 import { initSystem } from './system';
 import { initTable } from './table';
 
@@ -16,6 +18,7 @@ function go(view: string): void {
   });
   if (view !== 'table') $('#crumb').textContent = '';
   if (view === 'progress') renderProgress();
+  if (view === 'lab') refreshLab();
   $('main').scrollTop = 0;
 }
 
@@ -55,6 +58,9 @@ $('#suitBtn').onclick = () => {
 applyTheme();
 initTable();
 initSystem();
+initCritic();
+initLab();
+window.addEventListener('setu:go', (e) => go((e as CustomEvent<string>).detail));
 
 // Keep a copy on the device so the app opens without internet after the first visit.
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {

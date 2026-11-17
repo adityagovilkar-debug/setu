@@ -2,6 +2,7 @@
 import { Call, Contract, boardSetup, contractOf, isLegal, isOver, makeBid, seatOf, toAct } from '../engine/auction';
 import { CallMeta, Table, botCall, humanCall, inferences, newTable, play, runBots } from '../engine/bidder';
 import { Deal, SEAT_NAMES, STRAIN_LETTER, SUIT_SYMBOL, Seat, dealCards, evaluate, makeRng, sideOf } from '../engine/cards';
+import { SITUATIONS, dealFits } from '../engine/lab';
 import { describeConds } from '../engine/rules';
 import type { TrickTable } from '../engine/solver';
 import { bestContract, resultFor } from '../engine/result';
@@ -10,18 +11,9 @@ import { data, fieldSystem, mySystem, save } from './store';
 
 const ME: Seat = 2;
 const WHO = ['Partner', 'East', 'You', 'West'];
-const SITUATIONS: [string, string][] = [
-  ['any', 'Any deal'],
-  ['iopen', 'I open'],
-  ['popen', 'Partner opens'],
-  ['major', 'We open 1♥ or 1♠'],
-  ['nt', 'We open 1NT'],
-  ['they', 'They open'],
-  ['game', 'We have game values'],
-  ['slam', 'We have slam values'],
-];
 
 interface State {
+  dealer: Seat;
   table: Table | null;
   seed: number;
   vulNS: boolean;
@@ -32,7 +24,7 @@ interface State {
   solveError: string;
   logged: boolean;
 }
-const st: State = { table: null, seed: 0, vulNS: false, vulEW: false, sel: -1, hinted: false, tt: null, solveError: '', logged: false };
+const st: State = { dealer: 0, table: null, seed: 0, vulNS: false, vulEW: false, sel: -1, hinted: false, tt: null, solveError: '', logged: false };
 
 // ---------- solver worker
 let worker: Worker | null = null;
@@ -60,26 +52,14 @@ function solve(deal: Deal | null): void {
 }
 
 // ---------- dealing
-function fits(deal: Deal, dealer: Seat, situation: string): boolean {
-  const probe = newTable(deal, dealer, [mySystem(), fieldSystem()]);
-  while (!isOver(probe.auction) && probe.auction.calls.every((c) => c === 'P')) play(probe, botCall(probe, toAct(probe.auction)));
-  const first = probe.metas[probe.metas.length - 1];
-  if (!first || first.call === 'P') return false; // passed out: deal again
-  const ns = evaluate(deal[0]).hcp + evaluate(deal[2]).hcp;
-  const ours = sideOf(first.seat) === 0;
-  switch (situation) {
-    case 'iopen': return first.seat === ME;
-    case 'popen': return first.seat === 0;
-    case 'major': return ours && (first.call === '1H' || first.call === '1S');
-    case 'nt': return ours && first.call === '1N';
-    case 'they': return !ours && ns >= 16;
-    case 'game': return ns >= 25;
-    case 'slam': return ns >= 31;
-    default: return true;
-  }
-}
-function start(seed?: number): void {
-  const { dealer, vulNS, vulEW } = boardSetup(data.board);
+const fits = (deal: Deal, dealer: Seat, situation: string): boolean => dealFits(deal, dealer, situation, [mySystem(), fieldSystem()]);
+function start(seed?: number, dealerOverride?: Seat): void {
+  const setup = boardSetup(data.board);
+  const dealer = dealerOverride ?? setup.dealer;
+  const custom = dealerOverride !== undefined && dealerOverride !== setup.dealer;
+  const vulNS = !custom && setup.vulNS;
+  const vulEW = !custom && setup.vulEW;
+  st.dealer = dealer;
   let deal: Deal | null = null;
   let used = seed ?? 0;
   if (seed !== undefined) deal = dealCards(makeRng(seed));
@@ -218,7 +198,7 @@ function render(): void {
   const t = st.table;
   if (!t) return;
   const done = isOver(t.auction);
-  const { dealer } = boardSetup(data.board);
+  const dealer = st.dealer;
   const vulText = st.vulNS && st.vulEW ? 'Everyone vulnerable' : st.vulNS ? 'You are vulnerable' : st.vulEW ? 'They are vulnerable' : 'Nobody vulnerable';
   $('#tTitle').textContent = `Board ${data.board}`;
   $('#tSub').textContent = `Dealer: ${dealer === ME ? 'you' : WHO[dealer]} · ${vulText}`;
@@ -256,7 +236,7 @@ function render(): void {
   const next = document.getElementById('nextBtn');
   if (next) next.onclick = () => { data.board++; save(); start(); };
   const again = document.getElementById('againBtn');
-  if (again) again.onclick = () => start(st.seed);
+  if (again) again.onclick = () => start(st.seed, st.dealer);
 }
 
 export function initTable(): void {
@@ -271,5 +251,9 @@ export function initTable(): void {
 /** Called when the card changes: deal afresh so the bots use the new card. */
 export function restartTable(): void {
   start();
+}
+/** Deals one particular deal (an example found by the critic or the Lab). */
+export function dealExample(seed: number, dealer: Seat): void {
+  start(seed, dealer);
 }
 export { seatOf, SEAT_NAMES, STRAIN_LETTER };

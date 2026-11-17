@@ -188,6 +188,16 @@ Known limits of the bot today:
 - Opponents overcalling our 1NT, and most auctions after both sides have bid twice, are judged, not rule-driven. The Phase 2 critic will list exactly these.
 - Hosted since 2026-11-16 at https://adityagovilkar-debug.github.io/setu/ (GitHub Pages, `npm run deploy`). Works offline after the first visit and can be added to the Dock or the phone home screen. Not yet tried on a real Mac or in Safari.
 
+**Phase 2 — built 2026-11-17.**
+
+- **Critic** ("Check this system" in the System room). Bids 10,000 random deals with her card for both partners and the stock card for the opponents. Reports the share of bids made on judgment, the gaps (auctions where a bid had to be made with no rule), most frequent first and marked when they arise after opponents' action, with an example hand, "bid this deal at the Table", and "write a rule for this" (opens the rule editor with the auction filled in). For her own rule cards: how often each fires, what the base card would have bid instead, clashes between two of her cards, cards that never come up, cards that cannot be read. Convention usage, with rare ones flagged as easy to forget.
+- **Lab.** A against B, where each is "my card now", a saved version, or stock 2/1. Situation filter, 500 / 2,000 / 5,000 deals, matchpoints or IMPs. Bids every deal both ways; deals with the same contract are ties and skipped; the rest are solved double-dummy in a pool of Web Workers. Verdict only when the difference is outside a 95% margin and at least 30 deals differed; otherwise "no clear winner" or "too few deals". Dot matrix, biggest gains and losses, full deal with both auctions side by side, and a link to bid the deal at the Table.
+- Guide updated (parts 7 and 8).
+
+What the critic found in the base card on first run (2026-11-17): about 17% of the partnership's bids are made on judgment. The most frequent gaps are opener's rebid after partner's negative double, and responder's second bid after 1m – 1♥ – 1♠ and 1m – 1♠ – 2♣. These are in my base card, not her system; filling them is a good next step for the base card.
+
+Lab, semi-forcing against forcing 1NT, 2,000 deals where we open a major: 35 deals differed, B 51.4% ± 13.6 — no clear winner, as expected for a small change.
+
 ## 14. Mockup
 
 `setu/mockup/index.html` — clickable preview of all five rooms with sample figures (launch config `setu-mockup`, port 8220). Nothing in it is calculated.
